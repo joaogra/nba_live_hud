@@ -1,0 +1,79 @@
+{
+    "game": {
+        "gameId": "0022600123",
+        "actions": [
+            {
+                "actionNumber": 1,
+                "clock": "PT12M00.00S",
+                "period": 1,
+                "teamTricode": "LAL",
+                "actionType": "jumpball",
+                "subType": "recovered",
+                "playerNameI": "A. Davis",
+                "description": "Jump Ball Davis vs. Porzingis: Tip to Reaves",
+                "scoreHome": "0",
+                "scoreAway": "0"
+            },
+            {
+                "actionNumber": 2,
+                "clock": "PT11M42.00S",
+                "period": 1,
+                "teamTricode": "LAL",
+                "actionType": "2pt",
+                "subType": "Driving Layup",
+                "playerNameI": "L. James",
+                "description": "James 2' Driving Layup (2 PTS)",
+                "scoreHome": "2",
+                "scoreAway": "0"
+            },
+            {
+                "actionNumber": 3,
+                "clock": "PT11M20.00S",
+                "period": 1,
+                "teamTricode": "BOS",
+                "actionType": "3pt",
+                "subType": "Jump Shot",
+                "playerNameI": "J. Tatum",
+                "description": "Tatum 26' 3PT Jump Shot (3 PTS)",
+                "scoreHome": "2",
+                "scoreAway": "3"
+            },
+            {
+                "actionNumber": 4,
+                "clock": "PT10M58.00S",
+                "period": 1,
+                "teamTricode": "LAL",
+                "actionType": "foul",
+                "subType": "personal",
+                "playerNameI": "D. Russell",
+                "description": "Russell P.FOUL (P1.T1)",
+                "scoreHome": "2",
+                "scoreAway": "3"
+            },
+            {
+                "actionNumber": 5,
+                "clock": "PT10M58.00S",
+                "period": 1,
+                "teamTricode": "BOS",
+                "actionType": "substitution",
+                "subType": "out",
+                "playerNameI": "K. Porzingis",
+                "description": "SUB: Horford FOR Porzingis",
+                "scoreHome": "2",
+                "scoreAway": "3"
+            },
+            {
+                "actionNumber": 6,
+                "clock": "PT10M35.00S",
+                "period": 1,
+                "teamTricode": "BOS",
+                "actionType": "2pt",
+                "subType": "Pullup Jump Shot",
+                "playerNameI": "J. Brown",
+                "description": "Brown 15' Pullup Jump Shot (2 PTS)",
+                "scoreHome": "2",
+                "scoreAway": "5"
+            }
+        ]
+    }
+}
