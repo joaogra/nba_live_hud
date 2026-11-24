@@ -39,11 +39,11 @@ flowchart LR
     WS["FastAPI WebSocket (/ws/game)"]
     React["React HUD (useGameSocket)"]
 
-    NBA -->|Com GAME_ID na CLI| Poller
-    Mock -.->|Sem GAME_ID (Padrão)| Poller
-    Poller -->|Normaliza GameEvent| State
-    State -->|STATE_SNAPSHOT / GAME_ACTION| WS
-    WS <-->|Tempo Real| React
+    NBA -->|"Com GAME_ID na CLI"| Poller
+    Mock -.->|"Sem GAME_ID - Padrão"| Poller
+    Poller -->|"Normaliza GameEvent"| State
+    State -->|"STATE_SNAPSHOT / GAME_ACTION"| WS
+    WS <-->|"Tempo Real"| React
 ```
 
 ### Estrutura de Pastas
