@@ -15,6 +15,8 @@ class GameEvent(BaseModel):
     score_away: int
     period: int
     clock: str
+    home_on_court: list[str] = []
+    away_on_court: list[str] = []
 
 
 class GameSnapshot(BaseModel):
@@ -33,4 +35,6 @@ class GameSnapshot(BaseModel):
     score_away: int
     period: int
     clock: str
+    home_on_court: list[str] = []
+    away_on_court: list[str] = []
     recent_actions: list[GameEvent] = []

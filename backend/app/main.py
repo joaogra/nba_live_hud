@@ -6,8 +6,13 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.state import GameStateManager
 from app.poller import NbaPoller
 
-GAME_ID = "0022600123"
-REPLAY_MODE_FILE = "mocks/sample_game.json"
+#Modo Replay
+#GAME_ID = "0022600123"
+#REPLAY_MODE_FILE = "mocks/sample_game.json"
+
+#Modo ao vivo
+GAME_ID = "0022600243"
+REPLAY_MODE_FILE = None
 
 state_manager = GameStateManager(GAME_ID, home_team = "LAL", away_team="BOS")
 poller = NbaPoller(

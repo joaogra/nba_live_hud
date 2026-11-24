@@ -21,6 +21,9 @@ class GameStateManager:
         self.period = 1
         self.clock = "PT12M00.00S"
 
+        self.home_on_court: list[str] = []
+        self.away_on_court: list[str] = []
+
         self.recent_actions: deque[GameEvent] = deque(maxlen=5)
         self.active_connections: set[WebSocket] = set()
 
@@ -34,6 +37,8 @@ class GameStateManager:
         away_record: str = "",
         arena_name: str = "",
         arena_city: str = "",
+        home_on_court: list[str] | None = None,
+        away_on_court: list[str] | None = None,
     ):
         """Atualiza os metadados do jogo e notifica clientes já conectados."""
         self.home_team = home_team
@@ -45,8 +50,30 @@ class GameStateManager:
         self.arena_name = arena_name
         self.arena_city = arena_city
 
+        if home_on_court is not None:
+            self.home_on_court = home_on_court
+        if away_on_court is not None:
+            self.away_on_court = away_on_court
+
         if self.active_connections:
             await self._broadcast_raw(self.get_snapshot().model_dump_json())
+
+    def _update_on_court(self, event: GameEvent):
+        """Atualiza a lista de 5 jogadores em quadra quando ocorre substituição."""
+        if event.action_type != "substitution" or not event.player:
+            return
+
+        roster = (
+            self.home_on_court
+            if event.team == self.home_team
+            else self.away_on_court
+        )
+
+        sub_type = (event.sub_type or "").lower()
+        if sub_type == "out" and event.player in roster:
+            roster.remove(event.player)
+        elif sub_type == "in" and event.player not in roster:
+            roster.append(event.player)
 
     def get_snapshot(self) -> GameSnapshot:
         return GameSnapshot(
@@ -63,7 +90,9 @@ class GameStateManager:
             score_away=self.score_away,
             period=self.period,
             clock=self.clock,
-            recent_actions=list(self.recent_actions),
+            home_on_court=list(self.home_on_court),
+            away_on_court=list(self.away_on_court),
+            recent_actions=list(reversed(self.recent_actions)),
         )
 
     async def connect(self, websocket: WebSocket):
@@ -85,11 +114,16 @@ class GameStateManager:
                 self.disconnect(ws)
 
     async def process_and_broadcast(self, event: GameEvent):
-        self.score_home = event.score_home
-        self.score_away = event.score_away
-        self.period = event.period
-        self.clock = event.clock
-        self.recent_actions.append(event)
+            self.score_home = event.score_home
+            self.score_away = event.score_away
+            self.period = event.period
+            self.clock = event.clock
 
-        if self.active_connections:
-            await self._broadcast_raw(event.model_dump_json())
+            self._update_on_court(event)
+            event.home_on_court = list(self.home_on_court)
+            event.away_on_court = list(self.away_on_court)
+
+            self.recent_actions.append(event)
+
+            if self.active_connections:
+                await self._broadcast_raw(event.model_dump_json())
